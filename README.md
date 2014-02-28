@@ -24,6 +24,12 @@ $ npm install -g osx-wifi-cli
 * This was developed in a way that should make implementing this for other operating systems easy. If you want to give it a shot, check out the code or send me a message.
 
 * * *
+#### TODOs
+* Enable using a different device than en0
+* Enable connection to a network without a password. (Should currently be possible with `" "`)
+* Enable picking a network by a numeric id
+
+* * *
 #### Feedback
 * If you enjoyed this tool, please star it on Github!
 * I'd love to get any feedback you might have! Mail me at danyshaanan@gmail.com, or [open an issue](https://github.com/danyshaanan/osx-wifi-cli/issues/new).
