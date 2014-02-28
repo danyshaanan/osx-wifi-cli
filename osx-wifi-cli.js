@@ -42,8 +42,15 @@ function help(currentNetwork) {
 }
 
 function printNetworks(networksObj) {
-  //TODO: Add padding, numeric IDs, and colors
-  var output = networksObj.map(function(network) { return Object.keys(network).map(function(key) {return network[key];}).join(' ')}).join('\n');
+  networksObj.sort(function(a,b){return a.SSID > b.SSID});
+  var maxLengths = networksObj.reduce(function(lengths, network) {
+    Object.keys(network).forEach(function(key) {
+      lengths[key] = Math.max(lengths[key] || 0, network[key].toString().length)
+    });
+    return lengths;
+  }, {});
+  //TODO: add numeric IDs and colors
+  var output = networksObj.map(function(network) { return Object.keys(network).map(function(key) {return pad(network[key].toString(), maxLengths[key]+2, ' ') }).join(' ')}).join('\n');
   console.log(output);
 }
 
@@ -58,5 +65,9 @@ function execute(cmd) {
   return deferred.promise;
 };
 
+////////////////////////////////////////////////////////////////////////////////
 
+function pad(path, len, char) {
+  return (path.length >= len) ? path : pad(path + char[0], len, char);
+}
 
