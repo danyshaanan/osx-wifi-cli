@@ -1,5 +1,5 @@
 ## osx-wifi-cli
-### A command line tool for managing wifi connection on OSX
+### A command line tool for managing wifi connections on OSX
 
 * * *
 #### Installation
