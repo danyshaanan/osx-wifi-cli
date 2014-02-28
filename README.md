@@ -13,7 +13,7 @@ $ npm install -g osx-wifi-cli
 
 `osx-wifi-cli scan` shows available networks.
 
-`osx-wifi-cli on`, `osx-wifi-cli off`, and `osx-wifi-cli restart` controls the wifi device state.
+`osx-wifi-cli on`, `osx-wifi-cli off`, and `osx-wifi-cli restart` control the wifi device state.
 
 `osx-wifi-cli NETWORK PASSWORD` tries to connects to NETWORK with PASSWORD.
 
