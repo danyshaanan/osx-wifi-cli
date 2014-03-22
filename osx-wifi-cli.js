@@ -16,11 +16,20 @@ cli
   .option('off', 'turn wifi off')
   .option('restart', 'restart wifi')
   .option('scan', 'show available networks')
+  .option('--device <device>', 'set device (default is en0)') //see ugly todo below.
   .parse(process.argv);
 
 var utils = commands.osx; // If implementing other OSs, this is the place to check which we're on.
 
 var args = process.argv.slice(2);
+
+//This is very ugly!! TODO: check how to combine flags and "commands" properly. maybe use 'npm i cli'.
+if (cli.device) {
+  Object.keys(utils).forEach(function(key) {
+    if (typeof utils[key] == 'string') utils[key] = utils[key].replace('en0', cli.device);
+  })
+  args.splice(args.indexOf('--device'),2)
+}
 
 if      (args[0] == 'on')   execute(utils.on); //cli.on is a function
 else if (cli.off)           execute(utils.off);
@@ -70,4 +79,3 @@ function execute(cmd) {
 function pad(path, len, char) {
   return (path.length >= len) ? path : pad(path + char[0], len, char);
 }
-
