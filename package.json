@@ -1,6 +1,6 @@
 {
   "name": "osx-wifi-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A command line tool for managing wifi connection in osx",
   "keywords": ["osx", "wifi", "cli", "mac", "wireless", "network"],
   "homepage": "https://github.com/danyshaanan/osx-wifi-cli",
