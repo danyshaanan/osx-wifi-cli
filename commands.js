@@ -8,7 +8,7 @@ module.exports = {
     scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
     connect: 'networksetup -setairportnetwork en0 "NETWORK_TOKEN" "PASSWORD_TOKEN"',
     parseScan: function(output) {
-      var lineRegex = /^\s+(.*)\s+([a-z0-9:]{17})\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+$/;
+      var lineRegex = /^\s+(.*)\s+([a-z0-9:]{17})\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+(.*)$/;
       return output.split('\n').map(function(line) {
         var parts = line.match(lineRegex);
         return parts && { SSID: parts[1], BSSID: parts[2], RSSI: parseInt(parts[3]), CHANNEL: parseInt(parts[4]), HT: parts[5], CC: parts[6], SECURITY: parts[7] };
