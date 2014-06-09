@@ -9,6 +9,7 @@
     "email": "danyshaanan@gmail.com",
     "url": "http://danyshaanan.com/"
   },
+  "os": ["darwin"],
   "contributors": [],
   "licenses": [
     {
