@@ -1,4 +1,4 @@
-## osx-wifi-cli
+## osx-wifi-cli - WIP
 ### A command line tool for managing wifi connections on OSX
 
 * * *
