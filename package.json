@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "q": "1.0.0",
-    "rekuire": "0.1.5",
     "commander": "2.1.0"
   }
 }

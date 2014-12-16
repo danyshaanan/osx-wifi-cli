@@ -1,25 +1,16 @@
 {
   "name": "osx-wifi-cli",
-  "version": "0.0.1",
-  "from": "osx-wifi-cli@",
+  "version": "0.0.3",
   "dependencies": {
-    "q": {
-      "version": "1.0.0",
-      "from": "q@1.0.0"
-    },
-    "rekuire": {
-      "version": "0.1.5",
-      "from": "rekuire@0.1.5",
-      "dependencies": {
-        "underscore": {
-          "version": "1.6.0",
-          "from": "underscore@*"
-        }
-      }
-    },
     "commander": {
       "version": "2.1.0",
-      "from": "commander@2.1.0"
+      "from": "commander@2.1.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.1.0.tgz"
+    },
+    "q": {
+      "version": "1.0.0",
+      "from": "q@1.0.0",
+      "resolved": "https://registry.npmjs.org/q/-/q-1.0.0.tgz"
     }
   }
 }
