@@ -22,8 +22,5 @@ $ npm install -g osx-wifi-cli
 * This has been so far developed to "Work on my machine". If it's not working on yours, please tell me what's up, and I'll try to fix it. (For instance, wifi device is assumed to be en0).
 * For easier execution, add to your `.bashrc` file: `alias wifi='osx-wifi-cli'`
 * This was developed in a way that should make implementing this for other operating systems easy. If you want to give it a shot, check out the code or send me a message.
+* To connect to network without a password (bad idea!) use `osx-wifi-cli networkname " "`
 
-* * *
-#### TODOs
-* Enable connection to a network without a password. (Should currently be possible with `" "`)
-* Enable picking a network by a numeric id
