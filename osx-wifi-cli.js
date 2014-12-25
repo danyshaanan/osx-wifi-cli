@@ -5,7 +5,6 @@
 var Q = require('q')
 var cli = require('commander')
 var exec = require('child_process').exec
-var commands = require('./commands.js')
 var version = require('./package.json').version
 
 cli
@@ -17,6 +16,24 @@ cli
   .option('scan', 'show available networks')
   .option('--device <device>', 'set device (default is en0)') //see ugly todo below.
   .parse(process.argv)
+
+var commands = {
+  osx: {
+    on: 'networksetup -setairportpower en0 on',
+    off: 'networksetup -setairportpower en0 off',
+    scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
+    connect: 'networksetup -setairportnetwork en0 "NETWORK_TOKEN" "PASSWORD_TOKEN"',
+    currentNetwork: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I',
+    extractCurrentNetwork: function(output) {
+      return output.split('\n').reduce(function(obj, pair) {
+        var match = pair.match(/^\s+([^:]+):\s+(.*)(\b\s+)?$/);
+        if (match) obj[match[1]] = isNaN(match[2]) ? match[2] : parseInt(match[2]);
+        return obj;
+      }, {});
+    }
+  }
+}
+
 
 var utils = commands.osx // If implementing other OSs, this is the place to check which we're on.
 
