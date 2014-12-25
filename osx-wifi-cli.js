@@ -33,7 +33,7 @@ if (cli.device) {
 if      (args[0] == 'on')   execute(utils.on) //cli.on is a function
 else if (cli.off)           execute(utils.off)
 else if (cli.restart)       execute(utils.off).then(execute.bind(this,utils.on))
-else if (cli.scan)          execute(utils.scan).then(utils.parseScan).then(printNetworks)
+else if (cli.scan)          execute(utils.scan).then(console.log.bind(console))
 else if (args.length == 2)  execute(utils.connect.replace('NETWORK_TOKEN',args[0]).replace('PASSWORD_TOKEN',args[1]))
 else if (args.length == 0)  execute(utils.currentNetwork).then(utils.extractCurrentNetwork).then(help)
 else                        cli.help()
@@ -47,19 +47,6 @@ function help(currentNetwork) {
     console.log('you are not connected anywhere')
   }
   //TODO: add more help text
-}
-
-function printNetworks(networksObj) {
-  networksObj.sort(function(a,b){return a.SSID > b.SSID})
-  var maxLengths = networksObj.reduce(function(lengths, network) {
-    Object.keys(network).forEach(function(key) {
-      lengths[key] = Math.max(lengths[key] || 0, network[key].toString().length)
-    })
-    return lengths
-  }, {})
-  //TODO: add numeric IDs and colors
-  var output = networksObj.map(function(network) { return Object.keys(network).map(function(key) {return pad(network[key].toString(), maxLengths[key]+2, ' ') }).join(' ')}).join('\n')
-  console.log(output)
 }
 
 function execute(cmd) {
