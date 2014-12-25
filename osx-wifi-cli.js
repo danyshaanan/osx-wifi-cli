@@ -50,12 +50,7 @@ else                        cli.help()
 ////////////////////////////////////////////////
 
 function help(SSID) {
-  SSID = SSID.trim()
-  if (SSID) {
-    console.log('you are connected to ' + SSID)
-  } else {
-    console.log('you are not connected anywhere')
-  }
+  console.log(SSID.trim() ? 'you are connected to ' + SSID : 'you are not connected anywhere')
   //TODO: add more help text
 }
 
