@@ -23,17 +23,9 @@ var commands = {
     off: 'networksetup -setairportpower en0 off',
     scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
     connect: 'networksetup -setairportnetwork en0 "NETWORK_TOKEN" "PASSWORD_TOKEN"',
-    currentNetwork: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I',
-    extractCurrentNetwork: function(output) {
-      return output.split('\n').reduce(function(obj, pair) {
-        var match = pair.match(/^\s+([^:]+):\s+(.*)(\b\s+)?$/);
-        if (match) obj[match[1]] = isNaN(match[2]) ? match[2] : parseInt(match[2]);
-        return obj;
-      }, {});
-    }
+    currentNetwork: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"'
   }
 }
-
 
 var utils = commands.osx // If implementing other OSs, this is the place to check which we're on.
 
@@ -52,14 +44,15 @@ else if (cli.off)           execute(utils.off)
 else if (cli.restart)       execute(utils.off).then(execute.bind(this,utils.on))
 else if (cli.scan)          execute(utils.scan).then(console.log.bind(console))
 else if (args.length == 2)  execute(utils.connect.replace('NETWORK_TOKEN',args[0]).replace('PASSWORD_TOKEN',args[1]))
-else if (args.length == 0)  execute(utils.currentNetwork).then(utils.extractCurrentNetwork).then(help)
+else if (args.length == 0)  execute(utils.currentNetwork).then(help)
 else                        cli.help()
 
 ////////////////////////////////////////////////
 
-function help(currentNetwork) {
-  if (currentNetwork.SSID) {
-    console.log('you are connected to ' + currentNetwork.SSID)
+function help(SSID) {
+  SSID = SSID.trim()
+  if (SSID) {
+    console.log('you are connected to ' + SSID)
   } else {
     console.log('you are not connected anywhere')
   }
