@@ -1,5 +1,6 @@
 ## osx-wifi-cli
 
+[![NPM Version](https://img.shields.io/npm/v/osx-wifi-cli.svg?style=flat)](https://npmjs.org/package/osx-wifi-cli)
 [![Build Status](https://travis-ci.org/danyshaanan/osx-wifi-cli.png?branch=master)](https://travis-ci.org/danyshaanan/osx-wifi-cli)
 
 ### A command line tool for managing wifi connections on OSX
