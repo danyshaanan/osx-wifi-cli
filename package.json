@@ -27,7 +27,8 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "test": "grunt"
   },
   "bin": {
       "osx-wifi-cli" : "./osx-wifi-cli.js"
