@@ -34,18 +34,28 @@ var args = process.argv.slice(2)
 //This is very ugly!! TODO: check how to combine flags and "commands" properly. maybe use 'npm i cli'.
 if (cli.device) {
   Object.keys(utils).forEach(function(key) {
-    if (typeof utils[key] == 'string') utils[key] = utils[key].replace('en0', cli.device)
+    if (typeof utils[key] === 'string') {
+      utils[key] = utils[key].replace('en0', cli.device)
+    }
   })
-  args.splice(args.indexOf('--device'),2)
+  args.splice(args.indexOf('--device'), 2)
 }
 
-if      (args[0] == 'on')   execute(utils.on) //cli.on is a function
-else if (cli.off)           execute(utils.off)
-else if (cli.restart)       execute(utils.off).then(execute.bind(this,utils.on))
-else if (cli.scan)          execute(utils.scan).then(console.log.bind(console))
-else if (args.length == 2)  execute(utils.connect.replace('NETWORK_TOKEN',args[0]).replace('PASSWORD_TOKEN',args[1]))
-else if (args.length == 0)  execute(utils.currentNetwork).then(help)
-else                        cli.help()
+if      (args[0] === 'on') {
+  execute(utils.on) //cli.on is a function
+} else if (cli.off) {
+  execute(utils.off)
+} else if (cli.restart) {
+  execute(utils.off).then(execute.bind(this, utils.on))
+} else if (cli.scan) {
+  execute(utils.scan).then(console.log.bind(console))
+} else if (args.length === 2) {
+  execute(utils.connect.replace('NETWORK_TOKEN', args[0]).replace('PASSWORD_TOKEN', args[1]))
+} else if (args.length === 0) {
+  execute(utils.currentNetwork).then(help)
+} else {
+  cli.help()
+}
 
 ////////////////////////////////////////////////
 
@@ -58,9 +68,13 @@ function execute(cmd) {
   //console.log('executing command:', cmd)
   var deferred = Q.defer()
   exec(cmd, function(err, strout, strerr) {
-    if (err) deferred.reject(new Error(err))
-    else if (strerr) deferred.reject(new Error(strerr))
-    else deferred.resolve(strout)
+    if (err) {
+      deferred.reject(new Error(err))
+    } else if (strerr) {
+      deferred.reject(new Error(strerr))
+    } else {
+      deferred.resolve(strout)
+    }
   })
   return deferred.promise
 }
