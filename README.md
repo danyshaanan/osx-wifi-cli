@@ -1,4 +1,7 @@
-## osx-wifi-cli - WIP
+## osx-wifi-cli
+
+[![Build Status](https://travis-ci.org/danyshaanan/osx-wifi-cli.png?branch=master)](https://travis-ci.org/danyshaanan/osx-wifi-cli)
+
 ### A command line tool for managing wifi connections on OSX
 
 * * *
@@ -23,4 +26,3 @@ $ npm install -g osx-wifi-cli
 * For easier execution, add to your `.bashrc` file: `alias wifi='osx-wifi-cli'`
 * This was developed in a way that should make implementing this for other operating systems easy. If you want to give it a shot, check out the code or send me a message.
 * To connect to network without a password (bad idea!) use `osx-wifi-cli networkname " "`
-
