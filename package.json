@@ -11,6 +11,7 @@
   },
   "os": ["darwin"],
   "contributors": [],
+  "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
