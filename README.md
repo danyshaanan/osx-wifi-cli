@@ -1,8 +1,8 @@
 ## osx-wifi-cli
 
-[![Build Status](https://travis-ci.org/danyshaanan/cli-mandelbrot.png)](https://travis-ci.org/danyshaanan/cli-mandelbrot)
-[![NPM Version](https://img.shields.io/npm/v/cli-mandelbrot.svg?style=flat)](https://npmjs.org/package/cli-mandelbrot)
-[![License](http://img.shields.io/npm/l/cli-mandelbrot.svg?style=flat)](LICENSE)
+[![Build Status](https://travis-ci.org/danyshaanan/osx-wifi-cli.png)](https://travis-ci.org/danyshaanan/osx-wifi-cli)
+[![NPM Version](https://img.shields.io/npm/v/osx-wifi-cli.svg?style=flat)](https://npmjs.org/package/osx-wifi-cli)
+[![License](http://img.shields.io/npm/l/osx-wifi-cli.svg?style=flat)](LICENSE)
 
 ### A command line tool for managing wifi connections on OSX
 
