@@ -2,14 +2,23 @@
   "name": "osx-wifi-cli",
   "version": "1.0.0",
   "description": "A command line tool for managing wifi connection in osx",
-  "keywords": ["osx", "wifi", "cli", "mac", "wireless", "network"],
+  "keywords": [
+    "osx",
+    "wifi",
+    "cli",
+    "mac",
+    "wireless",
+    "network"
+  ],
   "homepage": "https://github.com/danyshaanan/osx-wifi-cli",
   "author": {
     "name": "Dany Shaanan",
     "email": "danyshaanan@gmail.com",
     "url": "http://danyshaanan.com/"
   },
-  "os": ["darwin"],
+  "os": [
+    "darwin"
+  ],
   "contributors": [],
   "license": "MIT",
   "licenses": [
@@ -23,8 +32,8 @@
     "url": "git://github.com/danyshaanan/osx-wifi-cli.git"
   },
   "bugs": {
-    "url" : "https://github.com/danyshaanan/osx-wifi-cli",
-    "email" : "danyshaanan@gmail.com"
+    "url": "https://github.com/danyshaanan/osx-wifi-cli",
+    "email": "danyshaanan@gmail.com"
   },
   "preferGlobal": true,
   "scripts": {
@@ -32,7 +41,7 @@
     "test": "grunt"
   },
   "bin": {
-      "osx-wifi-cli" : "./osx-wifi-cli.js"
+    "osx-wifi-cli": "./osx-wifi-cli.js"
   },
   "dependencies": {
     "q": "1.0.0",
