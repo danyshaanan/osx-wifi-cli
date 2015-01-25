@@ -1,4 +1,4 @@
-## osx-wifi-cli
+# osx-wifi-cli
 
 [![Build Status](https://travis-ci.org/danyshaanan/osx-wifi-cli.png)](https://travis-ci.org/danyshaanan/osx-wifi-cli)
 [![NPM Version](https://img.shields.io/npm/v/osx-wifi-cli.svg?style=flat)](https://npmjs.org/package/osx-wifi-cli)
