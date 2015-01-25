@@ -10,6 +10,7 @@ module.exports = function(grunt) {
     bump: {
       options: {
         files: ['package.json', 'npm-shrinkwrap.json'],
+        commitFiles: ['package.json', 'npm-shrinkwrap.json'],
         tagName: '%VERSION%',
         push: false
       }
