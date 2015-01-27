@@ -6,15 +6,15 @@
 [![Dependency Status](https://david-dm.org/danyshaanan/osx-wifi-cli.svg)](https://david-dm.org/danyshaanan/osx-wifi-cli)
 [![devDependency Status](https://david-dm.org/danyshaanan/osx-wifi-cli/dev-status.svg)](https://david-dm.org/danyshaanan/osx-wifi-cli#info=devDependencies)
 
-### A command line tool for managing wifi connections on OSX
+A command line tool for managing wifi connections on OSX
 
 * * *
-#### Installation
+### Installation
 ```bash
 $ npm install -g osx-wifi-cli
 ```
 * * *
-#### Usage
+### Usage
 
 `osx-wifi-cli` shows you which network you are connected to, if you are.
 
@@ -25,8 +25,13 @@ $ npm install -g osx-wifi-cli
 `osx-wifi-cli NETWORK PASSWORD` tries to connects to NETWORK with PASSWORD.
 
 * * *
-#### Notes
-* This has been so far developed to "Work on my machine". If it's not working on yours, please tell me what's up, and I'll try to fix it. (For instance, wifi device is assumed to be en0).
-* For easier execution, add to your `.bashrc` file: `alias wifi='osx-wifi-cli'`
-* This was developed in a way that should make implementing this for other operating systems easy. If you want to give it a shot, check out the code or send me a message.
+### Notes
+* For easier use, add to your `.bashrc` file: `alias wifi='osx-wifi-cli'`
 * To connect to network without a password (bad idea!) use `osx-wifi-cli networkname " "`
+
+* * *
+### Feedback
+* If you enjoyed this package, please star it [on Github](https://github.com/danyshaanan/osx-wifi-cli).
+* You are invited to [Open an issue on Github](https://github.com/danyshaanan/osx-wifi-cli/issues).
+* For other matters, my email address can be found on my [NpmJS page](https://www.npmjs.org/~danyshaanan), my [Github page](https://github.com/danyshaanan), or my [website](http://danyshaanan.com/).
+
