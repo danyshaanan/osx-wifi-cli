@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
 module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     eslint: {
-      target: ['osx-wifi-cli.js']
+      target: ['**/*.js', '!node_modules/**/*']
     },
     bump: {
       options: {
@@ -21,4 +21,4 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bump')
 
   grunt.registerTask('default', ['eslint'])
-};
+}
