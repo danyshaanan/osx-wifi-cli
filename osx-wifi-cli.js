@@ -41,7 +41,7 @@ if (cli.device) {
   args.splice(args.indexOf('--device'), 2)
 }
 
-if      (args[0] === 'on') {
+if (args[0] === 'on') {
   execute(utils.on) //cli.on is a function
 } else if (cli.off) {
   execute(utils.off)
@@ -77,10 +77,4 @@ function execute(cmd) {
     }
   })
   return deferred.promise
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-function pad(path, len, char) {
-  return (path.length >= len) ? path : pad(path + char[0], len, char)
 }
