@@ -14,7 +14,7 @@ cli
   .option('off', 'turn wifi off')
   .option('restart', 'restart wifi')
   .option('scan', 'show available networks')
-  .option('--device <device>', 'set device (default is en0)') //see ugly todo below.
+  .option('--device <device>', 'set device (default is en0)') // see ugly todo below.
   .parse(process.argv)
 
 var commands = {
@@ -31,7 +31,7 @@ var utils = commands.osx // If implementing other OSs, this is the place to chec
 
 var args = process.argv.slice(2)
 
-//This is very ugly!! TODO: check how to combine flags and "commands" properly. maybe use 'npm i cli'.
+// This is very ugly!! TODO: check how to combine flags and "commands" properly. maybe use 'npm i cli'.
 if (cli.device) {
   Object.keys(utils).forEach(function(key) {
     if (typeof utils[key] === 'string') {
@@ -42,7 +42,7 @@ if (cli.device) {
 }
 
 if (args[0] === 'on') {
-  execute(utils.on) //cli.on is a function
+  execute(utils.on) // cli.on is a function
 } else if (cli.off) {
   execute(utils.off)
 } else if (cli.restart) {
@@ -57,15 +57,15 @@ if (args[0] === 'on') {
   cli.help()
 }
 
-////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 
 function help(SSID) {
   console.log(SSID.trim() ? 'you are connected to ' + SSID : 'you are not connected anywhere')
-  //TODO: add more help text
+  // TODO: add more help text
 }
 
 function execute(cmd) {
-  //console.log('executing command:', cmd)
+  // console.log('executing command:', cmd)
   var deferred = Q.defer()
   exec(cmd, function(err, strout, strerr) {
     if (err) {
