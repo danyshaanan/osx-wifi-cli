@@ -37,7 +37,7 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "lint": "./node_modules/.bin/eslint osx-wifi-cli.js",
+    "lint": "eslint .",
     "test": "npm run lint",
     "start": "npm test"
   },
@@ -45,8 +45,9 @@
     "osx-wifi-cli": "./osx-wifi-cli.js"
   },
   "dependencies": {
-    "q": "1.0.0",
-    "commander": "2.1.0"
+    "commander": "2.1.0",
+    "dupes": "0.0.6",
+    "q": "1.0.0"
   },
   "devDependencies": {
     "eslint": "^1.1.0",
