@@ -32,7 +32,7 @@
     "url": "git://github.com/danyshaanan/osx-wifi-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/danyshaanan/osx-wifi-cli",
+    "url": "https://github.com/danyshaanan/osx-wifi-cli/issues",
     "email": "danyshaanan@gmail.com"
   },
   "preferGlobal": true,
