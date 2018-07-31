@@ -2,91 +2,81 @@
 
 'use strict'
 
-var Q = require('q')
-var cli = require('commander')
-var exec = require('child_process').exec
-var version = require('./package.json').version
+const cli = require('commander')
 
 cli
-  .version(version)
+  .version(require('./package.json').version)
   .usage('[on | off | restart | scan | pass | <network> <password>]')
   .option('on', 'turn wifi on')
   .option('off', 'turn wifi off')
   .option('restart', 'restart wifi')
   .option('scan', 'show available networks')
   .option('pass', 'show password for current network')
-  .option('--device <device>', 'set device (default is en0)') // see ugly todo below.
+  .option('--device <device>', 'set device (default is en0)', 'en0')
   .parse(process.argv)
 
-var commands = {
-  osx: {
-    on: 'networksetup -setairportpower en0 on',
-    off: 'networksetup -setairportpower en0 off',
+const platforms = {
+  /*
+    Adding another operating system might only require finding matching commands
+    the few below. If, however, you'll discover that it's not so simple, I'd be
+    happy to discuss it online at https://github.com/danyshaanan/osx-wifi-cli
+  */
+  darwin: {
+    on: 'networksetup -setairportpower DEVICE on',
+    off: 'networksetup -setairportpower DEVICE off',
     scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
-    pass: 'security find-generic-password -wa "PASS"',
-    connect: 'networksetup -setairportnetwork en0 "NETWORK_TOKEN" "PASSWORD_TOKEN"',
-    currentNetwork: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"'
+    pass: 'security find-generic-password -wa "SSID"',
+    connect: 'networksetup -setairportnetwork DEVICE "NETWORK" "PASSWORD"',
+    ssid: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"'
   }
+  // The commented out linux object below is a result of ~5 minutes online,
+  // Can you do better? (This is untested guesswork that might be distro dependent).
+  // ,linux : {
+  //   on: 'sudo ifconfig DEVICE up',
+  //   off: 'sudo ifconfig DEVICE down',
+  //   scan: 'sudo iw dev wlan0 scan | grep SSID',
+  //   pass: 'echo "Error! `pass` command not implemented for linux!" 1>&2 && exit 1',
+  //   connect: 'echo "Error! `pass` command not implemented for linux!" 1>&2 && exit 1',
+  //   ssid: 'iwgetid -r'
+  // }
+  // ,yourFavoriteOS: {}, // Add your favorite OS here!!
 }
 
-var utils = commands.osx // If implementing other OSs, this is the place to check which we're on.
-
-var args = process.argv.slice(2)
-
-// This is very ugly!! TODO: check how to combine flags and "commands" properly. maybe use 'npm i cli'.
-if (cli.device) {
-  Object.keys(utils).forEach(function(key) {
-    if (typeof utils[key] === 'string') {
-      utils[key] = utils[key].replace('en0', cli.device)
-    }
-  })
-  args.splice(args.indexOf('--device'), 2)
+const utils = platforms[process.platform]
+if (!utils) {
+  console.log([
+    `ERROR!`,
+    `Your 'process.platform' is '${process.platform}', which is not supported.`,
+    `Open a pull request or issue on Github:`,
+    `https://github.com/danyshaanan/osx-wifi-cli`
+  ].join('\n'))
+  process.exit(1)
 }
 
-if (args[0] === 'on') {
-  execute(utils.on) // cli.on is a function
+const args = process.argv.slice(2, Infinity)
+Object.keys(utils).forEach(key => { utils[key] = utils[key].replace('DEVICE', cli.device) })
+if (args.includes('--device')) args.splice(args.indexOf('--device'), 2)
+
+const exec = command => require('child_process').execSync(command).toString().trim()
+
+if (args[0] === 'on') { // cli.on is a function
+  exec(utils.on)
 } else if (cli.off) {
-  execute(utils.off)
+  exec(utils.off)
 } else if (cli.restart) {
-  execute(utils.off).then(execute.bind(this, utils.on))
+  exec(utils.off)
+  exec(utils.on)
 } else if (cli.scan) {
-  execute(utils.scan).then(console.log.bind(console))
+  console.log(exec(utils.scan))
 } else if (cli.pass) {
-  execute(utils.currentNetwork).then(getPass).then(logTrim)
+  const ssid = exec(utils.ssid)
+  const pass = exec(utils.pass.replace('SSID', ssid))
+  console.log(pass)
 } else if (args.length === 2) {
-  execute(utils.connect.replace('NETWORK_TOKEN', args[0]).replace('PASSWORD_TOKEN', args[1]))
+  exec(utils.connect.replace('NETWORK', args[0]).replace('PASSWORD', args[1]))
 } else if (args.length === 0) {
-  execute(utils.currentNetwork).then(help)
+  const ssid = exec(utils.ssid)
+  console.log(ssid ? `you are connected to ${ssid}.` : 'You are not connected anywhere.')
 } else {
   cli.help()
-}
-
-// -----------------------------------------------------------------------------
-
-function help(SSID) {
-  console.log(SSID.trim() ? 'you are connected to ' + SSID : 'you are not connected anywhere')
-  // TODO: add more help text
-}
-
-function getPass(SSID) {
-  return execute(utils.pass.replace('PASS', SSID.trim()))
-}
-
-function logTrim(str) {
-  console.log(str.trim())
-}
-
-function execute(cmd) {
-  // console.log('executing command:', cmd)
-  var deferred = Q.defer()
-  exec(cmd, function(err, strout, strerr) {
-    if (err) {
-      deferred.reject(new Error(err))
-    } else if (strerr) {
-      deferred.reject(new Error(strerr))
-    } else {
-      deferred.resolve(strout)
-    }
-  })
-  return deferred.promise
 }

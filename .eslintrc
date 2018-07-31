@@ -1,6 +1,8 @@
 {
     "extends": "standard",
     "rules": {
-        "space-before-function-paren": [2, "never"]
+        "arrow-parens": [0],
+        "space-before-function-paren": [2, "never"],
+        "quotes": [2, "single", { "allowTemplateLiterals": true }]
     }
 }
