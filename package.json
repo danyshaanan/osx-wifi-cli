@@ -36,6 +36,10 @@
     "email": "danyshaanan@gmail.com"
   },
   "preferGlobal": true,
+  "engines": {
+    "node": ">=4"
+  },
+  "engineStrict": true,
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint",
