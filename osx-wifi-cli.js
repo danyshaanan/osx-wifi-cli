@@ -35,8 +35,8 @@ const platforms = {
   //   on: 'sudo ifconfig DEVICE up',
   //   off: 'sudo ifconfig DEVICE down',
   //   scan: 'sudo iw dev wlan0 scan | grep SSID',
-  //   pass: 'echo "Error! `pass` command not implemented for linux!" 1>&2 && exit 1',
-  //   connect: 'echo "Error! `pass` command not implemented for linux!" 1>&2 && exit 1',
+  //   pass: 'echo "Error: 'pass' command not implemented for linux" 1>&2 && exit 1',
+  //   connect: 'echo "Error: 'pass' command not implemented for linux" 1>&2 && exit 1',
   //   ssid: 'iwgetid -r'
   // }
   // ,yourFavoriteOS: {}, // Add your favorite OS here!!
