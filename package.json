@@ -37,7 +37,7 @@
   },
   "preferGlobal": true,
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "engineStrict": true,
   "scripts": {
