@@ -61,7 +61,7 @@ const exec = command => require('child_process').execSync(command).toString().tr
 
 if (args[0] === 'on') { // cli.on is a function
   exec(utils.on)
-} else if (cli.off) {
+} else if (args[0] === 'off') {
   exec(utils.off)
 } else if (cli.restart) {
   exec(utils.off)
