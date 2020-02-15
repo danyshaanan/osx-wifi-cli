@@ -13,7 +13,10 @@ cli
   .option('scan', 'show available networks')
   .option('pass', 'show password for current network')
   .option('--device <device>', 'set device (default is en0)', 'en0')
+  .option('-v, --verbose', 'extra info')
   .parse(process.argv)
+
+const airport = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I'
 
 const platforms = {
   /*
@@ -27,7 +30,8 @@ const platforms = {
     scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
     pass: 'security find-generic-password -wa "SSID"',
     connect: 'networksetup -setairportnetwork DEVICE "NETWORK" "PASSWORD"',
-    ssid: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"'
+    ssid: `${airport} | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"`,
+    verbose: airport
   }
   // The commented out linux object below is a result of ~5 minutes online,
   // Can you do better? (This is untested guesswork that might be distro dependent).
@@ -58,6 +62,7 @@ Object.keys(utils).forEach(key => { utils[key] = utils[key].replace('DEVICE', cl
 if (args.includes('--device')) args.splice(args.indexOf('--device'), 2)
 
 const exec = command => require('child_process').execSync(command).toString().trim()
+const execFat = command => require('child_process').execSync(command).toString()
 
 if (args[0] === 'on') { // cli.on is a function
   exec(utils.on)
@@ -72,6 +77,8 @@ if (args[0] === 'on') { // cli.on is a function
   const ssid = exec(utils.ssid)
   const pass = exec(utils.pass.replace('SSID', ssid))
   console.log(pass)
+} else if (cli.verbose) {
+  console.log(execFat(utils.verbose))
 } else if (args.length === 2) {
   exec(utils.connect.replace('NETWORK', args[0]).replace('PASSWORD', args[1]))
 } else if (args.length === 0) {
