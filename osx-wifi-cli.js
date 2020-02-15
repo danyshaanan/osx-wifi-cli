@@ -12,11 +12,11 @@ cli
   .option('restart', 'restart wifi')
   .option('scan', 'show available networks')
   .option('pass', 'show password for current network')
+  .option('network', 'show network information')
   .option('--device <device>', 'set device (default is en0)', 'en0')
-  .option('-v, --verbose', 'extra info')
   .parse(process.argv)
 
-const airport = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I'
+const airport = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
 
 const platforms = {
   /*
@@ -27,11 +27,11 @@ const platforms = {
   darwin: {
     on: 'networksetup -setairportpower DEVICE on',
     off: 'networksetup -setairportpower DEVICE off',
-    scan: '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan',
+    scan: `${airport} scan`,
     pass: 'security find-generic-password -wa "SSID"',
     connect: 'networksetup -setairportnetwork DEVICE "NETWORK" "PASSWORD"',
-    ssid: `${airport} | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"`,
-    verbose: airport
+    ssid: `${airport} -I | grep -e "\\bSSID:" | sed -e "s/^.*SSID: //"`,
+    network: `${airport} -I`
   }
   // The commented out linux object below is a result of ~5 minutes online,
   // Can you do better? (This is untested guesswork that might be distro dependent).
@@ -61,28 +61,28 @@ const args = process.argv.slice(2, Infinity)
 Object.keys(utils).forEach(key => { utils[key] = utils[key].replace('DEVICE', cli.device) })
 if (args.includes('--device')) args.splice(args.indexOf('--device'), 2)
 
-const exec = command => require('child_process').execSync(command).toString().trim()
-const execFat = command => require('child_process').execSync(command).toString()
+const exec = command => require('child_process').execSync(command).toString()
+const execTrim = command => exec(command).trim()
 
 if (args[0] === 'on') { // cli.on is a function
-  exec(utils.on)
+  execTrim(utils.on)
 } else if (args[0] === 'off') {
-  exec(utils.off)
+  execTrim(utils.off)
 } else if (cli.restart) {
-  exec(utils.off)
-  exec(utils.on)
+  execTrim(utils.off)
+  execTrim(utils.on)
 } else if (cli.scan) {
-  console.log(exec(utils.scan))
+  console.log(execTrim(utils.scan))
 } else if (cli.pass) {
-  const ssid = exec(utils.ssid)
-  const pass = exec(utils.pass.replace('SSID', ssid))
+  const ssid = execTrim(utils.ssid)
+  const pass = execTrim(utils.pass.replace('SSID', ssid))
   console.log(pass)
-} else if (cli.verbose) {
-  console.log(execFat(utils.verbose))
+} else if (cli.network) {
+  console.log(exec(utils.network))
 } else if (args.length === 2) {
-  exec(utils.connect.replace('NETWORK', args[0]).replace('PASSWORD', args[1]))
+  execTrim(utils.connect.replace('NETWORK', args[0]).replace('PASSWORD', args[1]))
 } else if (args.length === 0) {
-  const ssid = exec(utils.ssid)
+  const ssid = execTrim(utils.ssid)
   console.log(ssid ? `you are connected to ${ssid}.` : 'You are not connected anywhere.')
 } else {
   cli.help()
