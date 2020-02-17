@@ -18,6 +18,8 @@ $ npm install -g osx-wifi-cli
 
 `osx-wifi-cli` shows you which network you are connected to, if you are.
 
+`osx-wifi-cli network` shows information about the current network.
+
 `osx-wifi-cli pass` shows you the password for your current network.
 
 `osx-wifi-cli scan` shows available networks.
